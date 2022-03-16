@@ -1,0 +1,35 @@
+#!/bin/bash
+#SBATCH --partition=gpu              # Partition (job queue)
+#SBATCH --requeue                    # Return job to the queue if preempted
+#SBATCH --job-name=acheck         # Assign an short name to your job
+#SBATCH --nodes=1                    # Number of nodes you require
+#SBATCH --cpus-per-task=8            # Cores per task (>1 if multithread tasks)
+#SBATCH --gres=gpu:1                 # Number of GPUs
+#SBATCH --mem=180GB                  # Real memory (RAM) required (MB), 0 is the whole-node memory
+#SBATCH --time=18:00:00              # Total run time limit (HH:MM:SS)
+#SBATCH --output=slurm.run_gpu.%N.%j.out     # STDOUT output file
+#SBATCH --error=slurm.run_gpu.%N.%j.err      # STDERR output file (optional)
+
+
+
+echo "--------------------------------" 
+date
+echo "--begin time---" 
+bdate=$(date +%s)
+echo $bdate 
+
+./run_local_mmer.sh "${PWD}/input.fa" "${PWD}/Output"
+
+echo "--end Time---" 
+edate=$(date +%s)
+echo $edate 
+echo "--time spend---" 
+echo $(( $bdate - $edate ))
+#echo $(( $bdate - $edate )) 
+echo "--------------------------------"
+
+
+sleep 6
+sacct --format=MaxRSS,MaxDiskRead,MaxDiskWrite,Elapsed -j $SLURM_JOBID
+sleep 2
+
