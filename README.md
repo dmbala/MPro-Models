@@ -1,10 +1,10 @@
 # Job files for monomer and dimer structure predictions of MPro
-
+''''
 ./6yb7_mono:
-  - input.fa (input fasta file)
-  - run_gpu.slrm (Slurm job submission script)
-  - run_local_gpu.sh (Wrapper script to submit the job on a gpu)
-
+  input.fa (input fasta file)
+  run_gpu.slrm (Slurm job submission script)
+  run_local_gpu.sh (Wrapper script to submit the job on a gpu)
+'''
 ./6yb7_dimer:
   - input.fa
   - run_gpu.slrm
